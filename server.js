@@ -21,25 +21,32 @@ var api_key_header = {
 	"content-type": "application/json"
 };
 var sessions;
-request.get({
-	url: api_url+'sessions',
-	headers: api_key_header
-}, function(err, res, body) {
-	sessions = JSON.parse(body);
-});
+getSessions();
 
 app.get('/', function(req, res){
-	var sesh;
+	var sesh = '';
+	getSessions();
 	for (var i in sessions) {
-		var toasters;
+		var toasters = [];
 		for (var j in sessions[i].toasters) {
-			console.log(sessions[i].toasters[j].username);
+			toasters.push(sessions[i].toasters[j].username);
 		}
-		console.log(sessions[i].toasters);
-		sesh += ('When?: '+ sessions[i].time+ '\nWho?: '+ sessions[i].toasters.join(', ')+ '\n');
+		sesh += ('When?: '+ sessions[i].time+ ' | Who?: '+ toasters.join(', '));
 	}
-	res.render(path + "index.pug", {data:sesh});
+	setTimeout(function() {
+		res.render(path + "index.pug", {data:sesh});
+	}, 5000);
+
 });
+
+function getSessions() {
+	request.get({
+		url: api_url+'sessions',
+		headers: api_key_header
+	}, function(err, res, body) {
+		sessions = JSON.parse(body);
+	});
+}
 
 var port = process.env.PORT || '8080';
 
