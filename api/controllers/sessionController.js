@@ -1,8 +1,13 @@
 var JsonDB = require('node-json-db');
 var db = new JsonDB("roastyDB", true, true);
 
+var utils = require('./controllerUtils.js');
+
 exports.getAllSessions = function(req, res) {
     try {
+        if (!utils.checkAPIKey(req)) {
+            throw "Invalid API Key";
+        }
         var sessionss = db.getData('/sessions');
         res.send(sessionss);
     } catch(e) {
@@ -14,6 +19,9 @@ exports.getAllSessions = function(req, res) {
 
 exports.addSession = function(req, res) {
     try {
+        if (!utils.checkAPIKey(req)) {
+            throw "Invalid API Key";
+        }
         for (var i in req.body) {
             db.push('/sessions[]', req.body[i]);
         }
@@ -29,6 +37,9 @@ exports.addSession = function(req, res) {
 
 exports.getSession = function(req, res) {
     try {
+        if (!utils.checkAPIKey(req)) {
+            throw "Invalid API Key";
+        }
         var sessions = db.getData('/sessions['+req.params.sessions_id+']')
         res.send(sessions);
     } catch(e) {
@@ -40,6 +51,9 @@ exports.getSession = function(req, res) {
 
 exports.updateSession = function(req, res) {
     try {
+        if (!utils.checkAPIKey(req)) {
+            throw "Invalid API Key";
+        }
         var sessions = db.push('/sessions['+req.params.sessions_id+']', req.body[0]);
         res.send({
             'result': 'success'
@@ -53,6 +67,9 @@ exports.updateSession = function(req, res) {
 
 exports.deleteSession = function(req, res) {
     try {
+        if (!utils.checkAPIKey(req)) {
+            throw "Invalid API Key";
+        }
         db.delete('/sessions['+req.params.sessions_id+']');
         res.send({
             'result': 'success'
