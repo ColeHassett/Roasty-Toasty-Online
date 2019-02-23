@@ -11,9 +11,7 @@ var routes = require('./api/routes/roastyRoute.js');
 routes(app);
 
 app.get('/', function(req, res){
-    console.log(req);
-    console.log('hiiiiii');
-	res.render(path + "index.html");
+	res.render(path + "index.pug");
 });
 
 var port = process.env.PORT || '8080';
