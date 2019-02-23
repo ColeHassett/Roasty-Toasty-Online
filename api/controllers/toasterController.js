@@ -3,6 +3,7 @@ var db = new JsonDB("roastyDB", true, true);
 
 exports.getAllToasters = function(req, res) {
     try {
+        checkKey(req.header);
         var toasters = db.getData('/toasters');
         res.send(toasters);
     } catch(e) {
@@ -64,3 +65,7 @@ exports.deleteToaster = function(req, res) {
     }
 
 };
+
+function checkKey(header) {
+    console.log(header);
+}

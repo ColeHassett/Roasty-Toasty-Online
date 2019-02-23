@@ -4,6 +4,8 @@ var app = express();
 
 var path = __dirname + '/views/';
 
+var config = require('config.js');
+
 app.use(body_parser.urlencoded({extended: true}));
 app.use(body_parser.json());
 
