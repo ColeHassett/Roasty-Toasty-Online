@@ -35,7 +35,7 @@ app.get('/', function(req, res){
 	}
 	setTimeout(function() {
 		res.render(path + "index.pug", {data:sesh});
-	}, 5000);
+	}, 10000);
 
 });
 
