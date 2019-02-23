@@ -40,7 +40,7 @@ exports.getSession = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        var sessions = db.getData('/sessions['+req.params.sessions_id+']')
+        var sessions = db.getData('/sessions['+req.params.session_id+']')
         res.send(sessions);
     } catch(e) {
         res.send({
@@ -54,7 +54,7 @@ exports.updateSession = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        var sessions = db.push('/sessions['+req.params.sessions_id+']', req.body[0]);
+        var sessions = db.push('/sessions['+req.params.session_id+']', req.body[0]);
         res.send({
             'result': 'success'
         });
@@ -70,7 +70,7 @@ exports.deleteSession = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        db.delete('/sessions['+req.params.sessions_id+']');
+        db.delete('/sessions['+req.params.session_id+']');
         res.send({
             'result': 'success'
         });
