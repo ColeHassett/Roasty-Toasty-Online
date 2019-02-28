@@ -1,6 +1,7 @@
 module.exports = function(app) {
     var toasters = require('../controllers/toasterController.js');
     var sessions = require('../controllers/sessionController.js');
+	var days = require('../controllers/dayController.js');
 
     // Toasters
     app.route('/toasters')
@@ -24,11 +25,11 @@ module.exports = function(app) {
 
 	// Days
     app.route('/days')
-        .get(sessions.getAllDays)
-        .post(sessions.addDay);
+        .get(days.getAllDays)
+        .post(days.addDay);
 
     app.route('/days/:day_id')
-        .get(sessions.getDay)
-        .put(sessions.updateDay)
-        .delete(sessions.deleteDay);
+        .get(days.getDay)
+        .put(days.updateDay)
+        .delete(days.deleteDay);
 }
