@@ -21,4 +21,14 @@ module.exports = function(app) {
         .get(sessions.getSession)
         .put(sessions.updateSession)
         .delete(sessions.deleteSession);
+
+	// Days
+    app.route('/days')
+        .get(sessions.getAllDays)
+        .post(sessions.addDay);
+
+    app.route('/days/:day_id')
+        .get(sessions.getDay)
+        .put(sessions.updateDay)
+        .delete(sessions.deleteDay);
 }
