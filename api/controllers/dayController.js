@@ -78,7 +78,7 @@ exports.deleteDay = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-		Days.remove({id: req.params.day_id},
+		Days.collection.dropIndex(req.params.day_id,
 			function(err, day) {
 				res.send({
 		            'result': 'success'
