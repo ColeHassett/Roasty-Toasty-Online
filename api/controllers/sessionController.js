@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
 Sessions = mongoose.model('Sessions');
 
 var utils = require('./controllerUtils.js');
-var config = require('./config.js');
+var config = require('../../config.js');
 
 exports.getAllSessions = function(req, res) {
     try {

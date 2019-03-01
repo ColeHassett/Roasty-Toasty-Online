@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
 Toasters = mongoose.model('Toasters');
 
 var utils = require('./controllerUtils.js');
-var config = require('./config.js');
+var config = require('../../config.js');
 
 exports.getAllToasters = function(req, res) {
     try {

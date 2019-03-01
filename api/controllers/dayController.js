@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
 Days = mongoose.model('Days');
 
 var utils = require('./controllerUtils.js');
-var config = require('./config.js');
+var config = require('../../config.js');
 
 exports.getAllDays = function(req, res) {
     try {
