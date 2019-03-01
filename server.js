@@ -2,11 +2,15 @@ var express = require('express');
 var body_parser = require('body-parser');
 var request = require('request');
 var app = express();
+var mongoose = require('mongoose');
 
 var config = require('./config.js');
 var calendar = require('./calendar.js');
 
 var path = __dirname + '/views/';
+
+mongoose.Promise = global.Promise;
+mongoose.connect(config.mongo_string);
 
 app.use(body_parser.urlencoded({extended: true}));
 app.use(body_parser.json());
