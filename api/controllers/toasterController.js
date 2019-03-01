@@ -42,7 +42,7 @@ exports.getToaster = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-		Toasters.findById(req.params.toaster_id. function(err, toaster) {
+		Toasters.findById(req.params.toaster_id, function(err, toaster) {
 			res.send(toasters);
 		});
     } catch(e) {

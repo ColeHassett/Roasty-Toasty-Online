@@ -42,7 +42,7 @@ exports.getSession = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-		Sessions.findById(req.params.session_id. function(err, session) {
+		Sessions.findById(req.params.session_id, function(err, session) {
 			res.send(sessions);
 		});
     } catch(e) {

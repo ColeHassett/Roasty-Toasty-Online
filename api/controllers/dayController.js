@@ -42,7 +42,7 @@ exports.getDay = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-		Days.findById(req.params.day_id. function(err, day) {
+		Days.findById(req.params.day_id, function(err, day) {
 			res.send(days);
 		});
     } catch(e) {
