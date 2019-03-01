@@ -1,15 +1,17 @@
-var JsonDB = require('node-json-db');
-var db = new JsonDB("roastyDB", true, true);
+var mongoose = require('mongoose'),
+Toasters = mongoose.model('Toasters');
 
 var utils = require('./controllerUtils.js');
+var config = require('./config.js');
 
 exports.getAllToasters = function(req, res) {
     try {
-        if (!utils.checkAPIKey(req)) {
+		if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        var toasters = db.getData('/toasters');
-        res.send(toasters);
+		Toasters.find({}, function(err, toaster) {
+			res.send(toaster);
+		})
     } catch(e) {
         res.send({
             'error': e
@@ -19,15 +21,15 @@ exports.getAllToasters = function(req, res) {
 
 exports.addToaster = function(req, res) {
     try {
-        if (!utils.checkAPIKey(req)) {
+		if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        for (var i in req.body) {
-            db.push('/toasters[]', req.body[i]);
-        }
-        res.send({
-            'result': 'success'
-        });
+		var new_toaster = new Toasters(req.body);
+		new_toaster.save(function(err, toaster) {
+			res.send({
+	            'result': 'success'
+	        });
+		});
     } catch(e) {
         res.send({
             'error': e
@@ -40,8 +42,9 @@ exports.getToaster = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        var toaster = db.getData('/toasters['+req.params.toaster_id+']')
-        res.send(toaster);
+		Toasters.findById(req.params.toaster_id. function(err, toaster) {
+			res.send(toasters);
+		});
     } catch(e) {
         res.send({
             'error': e
@@ -54,10 +57,15 @@ exports.updateToaster = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        var toaster = db.push('/toasters['+req.params.toaster_id+']', req.body[0]);
-        res.send({
-            'result': 'success'
-        });
+		Toasters.findOneAndUpdate({id: req.params.toaster_id},
+			req.body,
+			{new: true},
+			function(err, toaster) {
+				res.send({
+		            'result': 'success'
+		        });
+			}
+		);
     } catch(e) {
         res.send({
             'error': e
@@ -70,10 +78,13 @@ exports.deleteToaster = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        db.delete('/toasters['+req.params.toaster_id+']');
-        res.send({
-            'result': 'success'
-        });
+		Toasters.remove({id: req.params.toaster_id},
+			function(err, toaster) {
+				res.send({
+		            'result': 'success'
+		        });
+			}
+		);
     } catch(e) {
         res.send({
             'error': e

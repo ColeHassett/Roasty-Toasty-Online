@@ -1,15 +1,17 @@
-var JsonDB = require('node-json-db');
-var db = new JsonDB("roastyDB", true, true);
+var mongoose = require('mongoose'),
+Days = mongoose.model('Days');
 
 var utils = require('./controllerUtils.js');
+var config = require('./config.js');
 
 exports.getAllDays = function(req, res) {
     try {
-        if (!utils.checkAPIKey(req)) {
+		if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        var days = db.getData('/days');
-        res.send(days);
+		Days.find({}, function(err, day) {
+			res.send(day);
+		})
     } catch(e) {
         res.send({
             'error': e
@@ -19,15 +21,15 @@ exports.getAllDays = function(req, res) {
 
 exports.addDay = function(req, res) {
     try {
-        if (!utils.checkAPIKey(req)) {
+		if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        for (var i in req.body) {
-            db.push('/days[]', req.body[i]);
-        }
-        res.send({
-            'result': 'success'
-        });
+		var new_day = new Days(req.body);
+		new_day.save(function(err, day) {
+			res.send({
+	            'result': 'success'
+	        });
+		});
     } catch(e) {
         res.send({
             'error': e
@@ -40,8 +42,9 @@ exports.getDay = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        var day = db.getData('/days['+req.params.day_id+']')
-        res.send(day);
+		Days.findById(req.params.day_id. function(err, day) {
+			res.send(days);
+		});
     } catch(e) {
         res.send({
             'error': e
@@ -54,10 +57,15 @@ exports.updateDay = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        var day = db.push('/days['+req.params.day_id+']', req.body[0]);
-        res.send({
-            'result': 'success'
-        });
+		Days.findOneAndUpdate({id: req.params.day_id},
+			req.body,
+			{new: true},
+			function(err, day) {
+				res.send({
+		            'result': 'success'
+		        });
+			}
+		);
     } catch(e) {
         res.send({
             'error': e
@@ -70,10 +78,13 @@ exports.deleteDay = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        db.delete('/days['+req.params.day_id+']');
-        res.send({
-            'result': 'success'
-        });
+		Days.remove({id: req.params.day_id},
+			function(err, day) {
+				res.send({
+		            'result': 'success'
+		        });
+			}
+		);
     } catch(e) {
         res.send({
             'error': e

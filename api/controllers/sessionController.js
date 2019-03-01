@@ -1,15 +1,17 @@
-var JsonDB = require('node-json-db');
-var db = new JsonDB("roastyDB", true, true);
+var mongoose = require('mongoose'),
+Sessions = mongoose.model('Sessions');
 
 var utils = require('./controllerUtils.js');
+var config = require('./config.js');
 
 exports.getAllSessions = function(req, res) {
     try {
-        if (!utils.checkAPIKey(req)) {
+		if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        var sessionss = db.getData('/sessions');
-        res.send(sessionss);
+		Sessions.find({}, function(err, sessions) {
+			res.send(sessions);
+		})
     } catch(e) {
         res.send({
             'error': e
@@ -19,15 +21,15 @@ exports.getAllSessions = function(req, res) {
 
 exports.addSession = function(req, res) {
     try {
-        if (!utils.checkAPIKey(req)) {
+		if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        for (var i in req.body) {
-            db.push('/sessions[]', req.body[i]);
-        }
-        res.send({
-            'result': 'success'
-        });
+		var new_session = new Sessions(req.body);
+		new_session.save(function(err, session) {
+			res.send({
+	            'result': 'success'
+	        });
+		});
     } catch(e) {
         res.send({
             'error': e
@@ -40,8 +42,9 @@ exports.getSession = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        var sessions = db.getData('/sessions['+req.params.session_id+']')
-        res.send(sessions);
+		Sessions.findById(req.params.session_id. function(err, session) {
+			res.send(sessions);
+		});
     } catch(e) {
         res.send({
             'error': e
@@ -54,10 +57,15 @@ exports.updateSession = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        var sessions = db.push('/sessions['+req.params.session_id+']', req.body[0]);
-        res.send({
-            'result': 'success'
-        });
+		Sessions.findOneAndUpdate({id: req.params.session_id},
+			req.body,
+			{new: true},
+			function(err, session) {
+				res.send({
+		            'result': 'success'
+		        });
+			}
+		);
     } catch(e) {
         res.send({
             'error': e
@@ -70,10 +78,13 @@ exports.deleteSession = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-        db.delete('/sessions['+req.params.session_id+']');
-        res.send({
-            'result': 'success'
-        });
+		Sessions.remove({id: req.params.session_id},
+			function(err, session) {
+				res.send({
+		            'result': 'success'
+		        });
+			}
+		);
     } catch(e) {
         res.send({
             'error': e
