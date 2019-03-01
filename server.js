@@ -28,8 +28,8 @@ var api_key_header = {
 	'x-api-key': config.api_key,
 	"content-type": "application/json"
 };
-var sessions;
-getSessions();
+// var sessions;
+// getSessions();
 
 app.get('/', function(req, res){
 	// var sesh = '';
