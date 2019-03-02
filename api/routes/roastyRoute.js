@@ -2,6 +2,7 @@ module.exports = function(app) {
     var toasters = require('../controllers/toasterController.js');
     var sessions = require('../controllers/sessionController.js');
 	var days = require('../controllers/dayController.js');
+	var suggestions = require('../controllers/suggestionController.js');
 
     // Toasters
     app.route('/toasters')
