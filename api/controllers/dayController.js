@@ -57,7 +57,7 @@ exports.updateDay = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-		Days.findOneAndUpdate({{_id: req.params.session_id},
+		Days.findOneAndUpdate({_id: req.params.day_id},
 			{
 				"day": req.body.day,
 				"who": req.body.who,
