@@ -32,4 +32,14 @@ module.exports = function(app) {
         .get(days.getDay)
         .put(days.updateDay)
         .delete(days.deleteDay);
+
+	// Days
+	app.route('/suggestions')
+		.get(suggestions.getAllDays)
+		.post(suggestions.addDay);
+
+	app.route('/suggestions/:suggestion_id')
+		.get(suggestions.getDay)
+		.put(suggestions.updateDay)
+		.delete(suggestions.deleteDay);
 }

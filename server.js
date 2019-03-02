@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var Days = require('./api/models/dayModel');
 var Sessions = require('./api/models/sessionModel');
 var Toasters = require('./api/models/toasterModel');
+var Suggestions = require('./api/models/suggestionModel');
 
 var config = require('./config.js');
 var calendar = require('./calendar.js');
