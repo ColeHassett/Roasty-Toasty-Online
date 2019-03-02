@@ -10,6 +10,7 @@ exports.getAllSessions = function(req, res) {
             throw "Invalid API Key";
         }
 		Sessions.find({}, function(err, sessions) {
+			console.log("ERROR: ", err);
 			res.send(sessions);
 		})
     } catch(e) {
@@ -78,19 +79,17 @@ exports.deleteSession = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-		Sessions.findById(req.params.session_id, function(err, session) {
-			session = JSON.parse(session);
-			Sessions.remove({_id: sessions._id},
-				function(err, session) {
-					res.send({
-			            'result': 'success'
-			        });
-				}
-			);
-		});
+		Sessions.remove({id: req.params.session_id},
+			function(err, session) {
+				res.send({
+		            'result': 'success'
+		        });
+			}
+		);
     } catch(e) {
         res.send({
             'error': e
         });
     }
+
 };
