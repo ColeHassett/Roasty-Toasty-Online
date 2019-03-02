@@ -36,11 +36,11 @@ module.exports = function(app) {
 
 	// Days
 	app.route('/suggestions')
-		.get(suggestions.getAllDays)
-		.post(suggestions.addDay);
+		.get(suggestions.getAllSuggestions)
+		.post(suggestions.addSuggestion);
 
 	app.route('/suggestions/:suggestion_id')
-		.get(suggestions.getDay)
-		.put(suggestions.updateDay)
-		.delete(suggestions.deleteDay);
+		.get(suggestions.getSuggestion)
+		.put(suggestions.updateSuggestion)
+		.delete(suggestions.deleteSuggestion);
 }
