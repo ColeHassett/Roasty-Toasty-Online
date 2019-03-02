@@ -78,8 +78,8 @@ exports.deleteToaster = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-		Toasters.collection.dropIndex(req.params.toaster_id,
-			function(err, toaster) {
+		Toasters.remove({_id: req.params.toaster_id},
+			function(err, session) {
 				res.send({
 		            'result': 'success'
 		        });
