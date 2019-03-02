@@ -79,7 +79,7 @@ exports.deleteSession = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-		Sessions.remove({id: req.params.session_id},
+		Sessions.remove({_id: req.params.session_id},
 			function(err, session) {
 				res.send({
 		            'result': 'success'
