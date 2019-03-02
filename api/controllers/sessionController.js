@@ -58,8 +58,14 @@ exports.updateSession = function(req, res) {
         if (!utils.checkAPIKey(req)) {
             throw "Invalid API Key";
         }
-		Sessions.findOneAndUpdate({id: req.params.session_id},
-			req.body,
+		console.log(req.body);
+		console.log(req.params);
+		Sessions.findOneAndUpdate({_id: req.params.session_id},
+			{
+				"time": req.body.time,
+				"time_unf": req.body.time_unf,
+				"toasters": req.body.toasters
+			},
 			{new: true},
 			function(err, session) {
 				res.send({
