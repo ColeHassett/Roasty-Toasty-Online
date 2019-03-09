@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "homepage": "https://roasty-toasty-online.herokuapp.com/app",
+  "homepage": ".",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
@@ -20,7 +20,8 @@
   "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "pack": "react-scripts build",
+    "build": "node server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
