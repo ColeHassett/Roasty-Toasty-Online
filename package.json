@@ -19,9 +19,10 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "react-scripts start",
-    "pack": "react-scripts build",
+    "start": "node server.js",
     "build": "node server.js",
+    "start-dev": "react-scripts start",
+    "pack": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
