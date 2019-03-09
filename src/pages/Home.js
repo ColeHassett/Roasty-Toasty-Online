@@ -41,7 +41,7 @@ export default class Home extends React.Component {
         return (
             <div id="home_container">
 				<h1>Scheduled Sessions</h1>
-				<ul>
+				<ul id="sessions_list">
 					{this.state.sessions.map((session) => (
 						<li>
                             <h3>Starts At: {session.time}</h3>

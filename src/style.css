@@ -11,3 +11,8 @@
     list-style: none;
     display: inline;
 }
+
+#sessions_list {
+    list-style: none;
+    text-align: center;
+}
