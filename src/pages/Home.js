@@ -7,7 +7,7 @@ export default class Home extends React.Component {
 
     constructor() {
         super();
-        this.getAllSessions.bind(this);
+        this.updateSessions.bind(this);
         this.state = {
 			sessions: HomeStore.getAllSessions(),
 		}
@@ -18,16 +18,23 @@ export default class Home extends React.Component {
     }
 
     componentWillMount() {
-        HomeStore.on("change", this.getAllSessions);
+        HomeStore.on("change", this.updateSessions);
     }
 
     componentWillUnmount() {
-        HomeStore.removeListener("change", this.getAllSessions);
+        HomeStore.removeListener("change", this.updateSessions);
     }
 
     getAllSessions() {
         HomeActions.getAllSessions();
-        this.state.sessions = HomeStore.getAllSessions();
+    }
+
+    updateSessions() {
+        this.setState(
+            {
+                sessions: HomeStore.getAllSessions()
+            }
+        );
     }
 
     render() {
