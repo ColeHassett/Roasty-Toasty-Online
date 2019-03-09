@@ -7,7 +7,7 @@ import Home from './pages/Home';
 ReactDOM.render(
     <BrowserRouter>
         <div>
-            <Route path="/" exact component={Home}></Route>
+            <Route path="/app" exact component={Home}></Route>
         </div>
     </BrowserRouter>,
 document.getElementById('root'));
