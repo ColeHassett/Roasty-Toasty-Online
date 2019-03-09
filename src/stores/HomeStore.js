@@ -16,7 +16,6 @@ class HomeStore extends EventEmitter {
 	handleActions(action) {
 		switch(action.type) {
             case "RECEIVE_SESSIONS":
-                console.log('hi');
                 this.sessions = action.sessions;
                 this.emit("change");
                 break;
