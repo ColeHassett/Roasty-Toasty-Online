@@ -4,6 +4,7 @@ import axios from 'axios';
 import config from '../web_config.js';
 
 export function getAllSessions() {
+    console.log(process.env);
 	axios("https ://roasty-toasty-online.herokuapp.com/sessions",
         {
             headers: {
@@ -13,6 +14,6 @@ export function getAllSessions() {
         }
     ).then( (body) => {
         console.log("BODY: ", body);
-		//dispatcher.dispatch("RECEIVE_SESSIONS". sessions: JSON.parse(body));
+		dispatcher.dispatch({type: "RECEIVE_SESSIONS", sessions: JSON.parse(body)});
 	});
 }
