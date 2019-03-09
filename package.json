@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "homepage": "https://roasty-toasty-online.herokuapp.com/app",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
