@@ -4,8 +4,7 @@ import axios from 'axios';
 import config from '../web_config.js';
 
 export function getAllSessions() {
-    console.log(process.env);
-	axios("https ://roasty-toasty-online.herokuapp.com/sessions",
+	axios("https://roasty-toasty-online.herokuapp.com/sessions",
         {
             headers: {
                 'x-api-key': config.api_key,
