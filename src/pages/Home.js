@@ -7,7 +7,7 @@ export default class Home extends React.Component {
 
     constructor() {
         super();
-        this.updateSessions.bind(this);
+        this.updateSessions = this.updateSessions.bind(this);
         this.state = {
 			sessions: HomeStore.getAllSessions(),
 		}
