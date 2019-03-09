@@ -19,7 +19,7 @@ mongoose.connect(config.mongo_string);
 
 app.use(body_parser.urlencoded({extended: true}));
 app.use(body_parser.json());
-app.use(express.static(path.join(__dirname, 'build')));
+//app.use(express.static(__dirname + "/views"));
 
 var routes = require('./api/routes/roastyRoute.js');
 routes(app);
@@ -29,10 +29,33 @@ var api_key_header = {
 	'x-api-key': config.api_key,
 	"content-type": "application/json"
 };
+// var sessions;
+// getSessions();
 
 app.get('/', function(req, res){
-	res.sendFile(path.join(__dirname, 'build', 'index.html'));
+	// var sesh = '';
+	// getSessions();
+	// for (var i in sessions) {
+	// 	var toasters = [];
+	// 	for (var j in sessions[i].toasters) {
+	// 		toasters.push(sessions[i].toasters[j].username);
+	// 	}
+	// 	sesh += ('When?: '+ sessions[i].time+ ' | Who?: '+ toasters.join(', '));
+	// }
+	// setTimeout(function() {
+	// 	res.render(path + "index.pug", {data:sesh});
+	// }, 10000);
+	res.render(path + "index.pug");
 });
+
+// function getSessions() {
+// 	request.get({
+// 		url: api_url+'sessions',
+// 		headers: api_key_header
+// 	}, function(err, res, body) {
+// 		sessions = JSON.parse(body);
+// 	});
+// }
 
 var port = process.env.PORT || '8080';
 
