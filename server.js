@@ -3,7 +3,6 @@ var body_parser = require('body-parser');
 var request = require('request');
 var app = express();
 var mongoose = require('mongoose');
-const path = require('path');
 
 var Days = require('./api/models/dayModel');
 var Sessions = require('./api/models/sessionModel');
@@ -12,6 +11,8 @@ var Suggestions = require('./api/models/suggestionModel');
 
 var config = require('./config.js');
 var calendar = require('./calendar.js');
+
+var path = __dirname + '/views/';
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongo_string);
@@ -29,7 +30,7 @@ var api_key_header = {
 	"content-type": "application/json"
 };
 
-app.get('/*', function(req, res){
+app.get('/', function(req, res){
 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
