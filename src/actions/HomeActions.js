@@ -13,6 +13,6 @@ export function getAllSessions() {
         }
     ).then( (body) => {
         console.log("BODY: ", body);
-		dispatcher.dispatch({type: "RECEIVE_SESSIONS", sessions: JSON.parse(body.data)});
+		dispatcher.dispatch({type: "RECEIVE_SESSIONS", sessions: body.data});
 	});
 }
