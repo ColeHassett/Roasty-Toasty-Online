@@ -33,7 +33,11 @@ var api_key_header = {
 	"content-type": "application/json"
 };
 
-app.get('/', async function(req, res){
+app.get('/', function(req, res){
+	res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+app.get('/loggedIn', async function(req, res){
 
 	console.log(`REQ: ${req}`);
 	console.log(`REQ2: ${req.query}`);
