@@ -36,7 +36,9 @@ var api_key_header = {
 app.get('/', async function(req, res){
 
 	if (req.query.code) {
+		console.log('code');
 		let code = req.query.code;
+		console.log(req.query.code);
 		let creds = btoa(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`);
 	    let redirect = 'https://roasty-toasty-online.herokuapp.com/';
 		let response = await fetch(`https://discordapp.com/api/oauth2/token?grant_type=authorization_code&code=${code}&redirect_uri=${redirect}`,
@@ -47,6 +49,7 @@ app.get('/', async function(req, res){
 				},
 			});
 		let json = await response.json();
+		console.log(`JSON: ${json}`);
 		user_info = await fetch('https://discordapp.com/api/users/@me',
 			{
 				method: 'GET',
