@@ -33,11 +33,20 @@ var api_key_header = {
 	"content-type": "application/json"
 };
 
+const catchAsync = fn => (
+  (req, res, next) => {
+    const routePromise = fn(req, res, next);
+    if (routePromise.catch) {
+      routePromise.catch(err => next(err));
+    }
+  }
+);
+
 app.get('/', function(req, res){
 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.get('/loggedIn', async function(req, res){
+app.get('/loggedIn', catchAsync(async function(req, res){
 
 	console.log(`REQ: ${req}`);
 	console.log(`REQ2: ${req.query}`);
@@ -68,6 +77,21 @@ app.get('/loggedIn', async function(req, res){
 	}
 
 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
+}));
+
+app.use((err, req, res, next) => {
+  switch (err.message) {
+    case 'NoCodeProvided':
+      return res.status(400).send({
+        status: 'ERROR',
+        error: err.message,
+      });
+    default:
+      return res.status(500).send({
+        status: 'ERROR',
+        error: err.message,
+      });
+  }
 });
 
 var port = process.env.PORT || '8080';
