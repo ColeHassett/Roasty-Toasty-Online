@@ -35,6 +35,9 @@ var api_key_header = {
 
 app.get('/', async function(req, res){
 
+	console.log(`REQ: ${req}`);
+	console.log(`REQ2: ${req.query}`);
+
 	if (req.query.code) {
 		console.log('code');
 		let code = req.query.code;
