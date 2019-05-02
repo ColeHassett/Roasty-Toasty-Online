@@ -33,7 +33,7 @@ var api_key_header = {
 	"content-type": "application/json"
 };
 
-app.get('/', function(req, res){
+app.get('/', async function(req, res){
 
 	if (req.query.code) {
 		let code = req.query.code;
@@ -54,7 +54,7 @@ app.get('/', function(req, res){
 					Authorization: `Bearer ${json.access_token}`,
 				},
 			});
-		console.log(user_info);
+		console.log(`USER: ${user_info}`);
 	}
 
 	res.sendFile(path.join(__dirname, 'build', 'index.html'));

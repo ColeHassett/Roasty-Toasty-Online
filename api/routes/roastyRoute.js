@@ -6,8 +6,6 @@ module.exports = function(app) {
 
     const path = require('path');
 
-    console.log(app.header);
-
     app.route('/login').get((req, res) => {
         const redirect = 'https://roasty-toasty-online.herokuapp.com/';
         res.redirect(`https://discordapp.com/oauth2/authorize?client_id=${process.env.CLIENT_ID}&scope=identify&response_type=code&redirect_uri=${redirect}`);
