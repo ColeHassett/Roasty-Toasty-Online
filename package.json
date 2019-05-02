@@ -22,7 +22,6 @@
   "devDependencies": {},
   "scripts": {
     "start": "node server.js",
-    "build": "node server.js",
     "start-dev": "react-scripts start",
     "pack": "react-scripts build",
     "test": "react-scripts test",
