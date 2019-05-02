@@ -3,6 +3,8 @@ var body_parser = require('body-parser');
 var request = require('request');
 var app = express();
 var mongoose = require('mongoose');
+var fetch = require('node-fetch');
+var btoa = require('btoa');
 const path = require('path');
 
 var Days = require('./api/models/dayModel');
@@ -12,6 +14,8 @@ var Suggestions = require('./api/models/suggestionModel');
 
 var config = require('./config.js');
 var calendar = require('./calendar.js');
+
+var user_info;
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongo_string);
@@ -30,6 +34,29 @@ var api_key_header = {
 };
 
 app.get('/', function(req, res){
+
+	if (req.query.code) {
+		let code = req.query.code;
+		let creds = btoa(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`);
+	    let redirect = 'https://roasty-toasty-online.herokuapp.com/';
+		let response = await fetch(`https://discordapp.com/api/oauth2/token?grant_type=authorization_code&code=${code}&redirect_uri=${redirect}`,
+			{
+				method: 'POST',
+				headers: {
+					Authorization: `Basic ${creds}`,
+				},
+			});
+		let json = await response.json();
+		user_info = await fetch('https://discordapp.com/api/users/@me',
+			{
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${json.access_token}`,
+				},
+			});
+		console.log(user_info);
+	}
+
 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 

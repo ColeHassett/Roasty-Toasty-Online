@@ -39,21 +39,24 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <div id="home_container">
-				<h1>Scheduled Sessions</h1>
-				<ul id="sessions_list">
-					{this.state.sessions.map((session) => (
-						<li>
-                            <h3>Starts At: {session.time}</h3>
-                            <ul id="toaster_list">
-							{session.toasters.map((toaster) => (
-								<li>{toaster.username}</li>
-							))}
-                            </ul>
-						</li>
-					))}
-				</ul>
+            <div>
+                <a id='discord_login' href='/login'>Login with Discord</a><div id="home_container">
+                    <h1>Scheduled Sessions</h1>
+                    <ul id="sessions_list">
+                        {this.state.sessions.map((session) => (
+                            <li>
+                                <h3>Starts At: {session.time}</h3>
+                                <ul id="toaster_list">
+                                    {session.toasters.map((toaster) => (
+                                        <li>{toaster.username}</li>
+                                    ))}
+                                </ul>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
+
         );
     }
 }

@@ -4,6 +4,15 @@ module.exports = function(app) {
 	var days = require('../controllers/dayController.js');
 	var suggestions = require('../controllers/suggestionController.js');
 
+    const path = require('path');
+
+    console.log(app.header);
+
+    app.route('/login').get((req, res) => {
+        const redirect = 'https://roasty-toasty-online.herokuapp.com/';
+        res.redirect(`https://discordapp.com/oauth2/authorize?client_id=${process.env.CLIENT_ID}&scope=identify&response_type=code&redirect_uri=${redirect}`);
+    });
+
     // Toasters
     app.route('/toasters')
         .get(toasters.getAllToasters)
@@ -34,7 +43,7 @@ module.exports = function(app) {
         .put(days.updateDay)
         .delete(days.deleteDay);
 
-	// Days
+	// Suggestions
 	app.route('/suggestions')
 		.get(suggestions.getAllSuggestions)
 		.post(suggestions.addSuggestion);

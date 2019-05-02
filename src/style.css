@@ -16,3 +16,17 @@
     list-style: none;
     text-align: center;
 }
+
+#discord_login {
+    background: #7289DA;
+    text-decoration: none;
+    color: white;
+    padding: 0px 30px;
+    text-align: center;
+    float: right;
+    border-radius: 3px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 45px;
+    font-size: 15px;
+    font-weight: 500;
+}
